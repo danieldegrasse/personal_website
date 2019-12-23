@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <title>About Me</title>
+    <title>Resume</title>
 </head>
 <body>
 <!-- Navbar for moving between pages -->
@@ -21,11 +21,11 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <!-- navigation targets in website -->
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
             <li class="nav-item">
-                <a class="nav-link" href="resume.html">Resume</a>
+                <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Resume</a>
             </li>
             <!-- Projects dropdown -->
             <li class="nav-item dropdown">
@@ -45,15 +45,14 @@
         </ul>
     </div>
 </nav>
-<div class="mt-4 container-fluid">
-    <div class="container">
-            <img src="profile.jpg" class="mx-3 my-1 rounded float-left" alt="Daniel DeGrasse">
-            <p>Hey, my name's Daniel DeGrasse, and welcome to my website! I'm an Electrical Engineering Student at Rice University,
-                interested in firmware design and embedded systems. Click on any of the links in the
-                navigation bar to learn more about my projects, past experience, or how to get in contact with me.</p>
-    </div>
+<!-- embed pdf into page -->
+<div class="embed-responsive" style="padding-bottom: 100%">
+    <object data="resume.pdf" type="application/pdf" width="100%" height="100%">
+        <p>It appears you don't have a PDF plugin for this browser.
+            No biggie... you can <a href="resume.pdf">click here to
+                download the PDF file.</a></p>
+    </object>
 </div>
-
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
