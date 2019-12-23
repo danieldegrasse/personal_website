@@ -7,13 +7,12 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link href="sticky-footer.css" rel="stylesheet">
 
-    <title>About Me</title>
+    <title>Hackintosh</title>
 </head>
 <body>
-<!-- Navbar for moving between pages -->
 <header>
+<!-- Navbar for moving between pages -->
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
     <a class="navbar-brand" href="#">Navigation</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -23,37 +22,42 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <!-- navigation targets in website -->
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            <li class="nav-item">
+                <a class="nav-link" href="../index.html">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="resume.html">Resume</a>
+                <a class="nav-link" href="../resume.html">Resume</a>
             </li>
             <!-- Projects dropdown -->
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown active">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     My Projects
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="projects/hackintosh.html">Hackintosh</a>
+                    <a class="dropdown-item" href="hackintosh.html">Hackintosh</a>
                     <a class="dropdown-item" href="#">Linux Administration</a>
                     <a class="dropdown-item" href="#">iMessage on a PC</a>
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="contact.html">Contact Me</a>
+                <a class="nav-link" href="../contact.html">Contact Me</a>
             </li>
         </ul>
     </div>
 </nav>
 </header>
 <main role="main" class="container">
-<div class="mt-4 container-fluid">
-    <div class="container">
-            <img src="profile.jpg" class="mx-3 my-1 rounded float-left" alt="Daniel DeGrasse">
-            <p>Hey, my name's Daniel DeGrasse, and welcome to my website! I'm an Electrical Engineering Student at Rice University,
-                interested in firmware design and embedded systems. Click on any of the links in the
-                navigation bar to learn more about my projects, past experience, or how to get in contact with me.</p>
+<div class="jumbotron m-5">
+    <img src="clover-diff.png" class="img-fluid" alt="Patch diff between commits for Clover bootloader">
+    <h4 class="display-4">Mac OS on a PC</h4>
+    <hr class="my-2">
+    <p>Booting Mac OS on non-Apple hardware presents unique challenges, particularly when bugs appear with your
+    specific hardware configuration</p>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+        </div>
     </div>
 </div>
 </main>

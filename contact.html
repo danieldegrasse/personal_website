@@ -11,6 +11,7 @@
     <title>Contact Me</title>
 </head>
 <body>
+<header>
 <!-- Navbar for moving between pages -->
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
     <a class="navbar-brand" href="#">Navigation</a>
@@ -33,10 +34,9 @@
                     My Projects
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
+                    <a class="dropdown-item" href="projects/hackintosh.html">Hackintosh</a>
+                    <a class="dropdown-item" href="#">Linux Administration</a>
+                    <a class="dropdown-item" href="#">iMessage on a PC</a>
                 </div>
             </li>
             <li class="nav-item active">
@@ -45,6 +45,8 @@
         </ul>
     </div>
 </nav>
+</header>
+<main role="main" class="container">
 <div class="mt-4 container-fluid">
     <div class="container">
         <div class="row">
@@ -61,6 +63,13 @@
         </div>
     </div>
 </div>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <p class="text-center text-muted">Copyright Daniel DeGrasse 2019</p>
+    </div>
+</footer>
 <!-- simple script to set mailing address based on current date-->
 <script>
     const home_addr = "1415 Gaston Avenue\n Austin TX, 78703";

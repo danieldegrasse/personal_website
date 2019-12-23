@@ -12,6 +12,7 @@
 </head>
 <body>
 <!-- Navbar for moving between pages -->
+<header>
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
     <a class="navbar-brand" href="#">Navigation</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,10 +34,9 @@
                     My Projects
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
+                    <a class="dropdown-item" href="projects/hackintosh.html">Hackintosh</a>
+                    <a class="dropdown-item" href="#">Linux Administration</a>
+                    <a class="dropdown-item" href="#">iMessage on a PC</a>
                 </div>
             </li>
             <li class="nav-item">
@@ -45,7 +45,9 @@
         </ul>
     </div>
 </nav>
+</header>
 <!-- embed pdf into page -->
+<main role="main"class="container">
 <div class="embed-responsive" style="padding-bottom: 100%">
     <object data="resume.pdf" type="application/pdf" width="100%" height="100%">
         <p>It appears you don't have a PDF plugin for this browser.
@@ -53,6 +55,12 @@
                 download the PDF file.</a></p>
     </object>
 </div>
+</main>
+<footer class="footer">
+    <div class="container">
+        <p class="text-center text-muted">Copyright Daniel DeGrasse 2019</p>
+    </div>
+</footer>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
