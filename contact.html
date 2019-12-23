@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <title>About Me</title>
+    <title>Contact Me</title>
 </head>
 <body>
 <!-- Navbar for moving between pages -->
@@ -21,8 +21,8 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <!-- navigation targets in website -->
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">Home</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="resume.html">Resume</a>
@@ -39,21 +39,41 @@
                     <a class="dropdown-item" href="#">Something else here</a>
                 </div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="contact.html">Contact Me</a>
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Contact Me<span class="sr-only">(current)</span></a>
             </li>
         </ul>
     </div>
 </nav>
 <div class="mt-4 container-fluid">
     <div class="container">
-            <img src="profile.jpg" class="mx-3 my-1 rounded float-left" alt="Daniel DeGrasse">
-            <p>Hey, my name's Daniel DeGrasse, and welcome to my website! I'm an Electrical Engineering Student at Rice University,
-                interested in firmware design and embedded systems. Click on any of the links in the
-                navigation bar to learn more about my projects, past experience, or how to get in contact with me.</p>
+        <div class="row">
+            <div class="col">
+                <p class="text-right">Mailing Address:</p>
+                <br><p class="text-right">Phone Number:</p>
+                <p class="text-right">Email Address:</p>
+            </div>
+            <div class="col">
+                <p id="mailing-addr">1415 Gaston Avenue<br>Austin TX, 78703</p>
+                <p>(512) 574-8216</p>
+                <a href="mailto:daniel@degrasse.com">daniel@degrasse.com</a>
+            </div>
+        </div>
     </div>
 </div>
-
+<!-- simple script to set mailing address based on current date-->
+<script>
+    const home_addr = "1415 Gaston Avenue\n Austin TX, 78703";
+    const school_addr = "1736 Wroxton Court\n Houston TX, 77005";
+    const date = new Date();
+    if (date.getMonth() > 5 && date.getMonth() < 8) {
+        // summer months, set home address
+        document.getElementById("mailing-addr").innerText = home_addr;
+    }else {
+        // school year, set school address
+        document.getElementById("mailing-addr").innerText = school_addr;
+    }
+</script>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
