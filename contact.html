@@ -37,6 +37,7 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="projects/hackintosh.html">Hackintosh</a>
                     <a class="dropdown-item" href="projects/linux.html">Linux Administration</a>
+                    <a class="dropdown-item" href="projects/serial_logger.html">Serial Logger</a>
                 </div>
             </li>
             <li class="nav-item active">
@@ -49,22 +50,6 @@
 <main role="main" class="container">
 <div class="mt-4 container-fluid">
     <div class="container">
-        <div class="row">
-            <div class="col">
-                <p class="text-right">Mailing Address:</p>
-            </div>
-            <div class="col">
-                <p id="mailing-addr">1415 Gaston Avenue<br>Austin TX, 78703</p>
-            </div>
-        </div>
-        <div class="row">
-           <div class="col">
-               <p class="text-right">Phone Number:</p>
-           </div>
-            <div class="col">
-                <p>(512) 574-8216</p>
-            </div>
-        </div>
         <div class="row">
             <div class="col">
                 <p class="text-right">Email Address:</p>
@@ -85,22 +70,9 @@
 
 <footer class="footer">
     <div class="container">
-        <p class="text-center text-muted">© Daniel DeGrasse 2019</p>
+        <p class="text-center text-muted">© Daniel DeGrasse 2020</p>
     </div>
 </footer>
-<!-- simple script to set mailing address based on current date-->
-<script>
-    const home_addr = "1415 Gaston Avenue\n Austin TX, 78703";
-    const school_addr = "1736 Wroxton Court\n Houston TX, 77005";
-    const date = new Date();
-    if (date.getMonth() > 5 && date.getMonth() < 8) {
-        // summer months, set home address
-        document.getElementById("mailing-addr").innerText = home_addr;
-    }else {
-        // school year, set school address
-        document.getElementById("mailing-addr").innerText = school_addr;
-    }
-</script>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="../sticky-footer.css" rel="stylesheet">
+
+    <title>Serial Logger</title>
+</head>
+<body>
+<header>
+    <!-- Navbar for moving between pages -->
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Navigation</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- navigation targets in website -->
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="../index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../resume.html">Resume</a>
+                </li>
+                <!-- Projects dropdown -->
+                <li class="nav-item dropdown active">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        My Projects
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="hackintosh.html">Hackintosh</a>
+                        <a class="dropdown-item" href="linux.html">Linux Administration</a>
+                        <a class="dropdown-item" href="#">Serial Logger</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../contact.html">Contact Me</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<main role="main" class="container-fluid">
+    <div class="jumbotron m-3">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col">
+                    <img src="clover-diff.png" class="img-fluid" alt="Patch diff between commits for Clover bootloader">
+                </div>
+                <div class="col">
+                    <img src="clover-diff.png" class="img-fluid" alt="Patch diff between commits for Clover bootloader">
+                </div>
+            </div>
+        </div>
+        <h1 class="display-4">Collecting Serial Log Data</h1>
+        <hr class="my-2">
+        <p>For particularly difficult errors to capture, serial logging can be a low level way to record data. This
+            project offers an always-on logging device for your PC.</p>
+    </div>
+    <div class="container-fluid">
+        <h3>Problem Statement</h3>
+        <p>The issue that drove me to design a serial logging device was a intermittent issue with my desktop system.
+            The system would periodically fail to wake from sleep. Although I was able to narrow the issue down to
+            one with the graphics drivers, I could not get further. The machine did not appear to rejoin the network, so
+            I could not access it via ssh. Stuck, I decided to leverage the Linux Kernel's ability to open a serial
+            console.
+        </p>
+
+        <p>
+            In order to leverage the kernels' serial console fully, I did not want to connect another desktop via a
+            null modem cable and talk to the desktop's login console directly. Rather, I wanted to use the console's
+            ability to output kernel logs, and capture the kernel logs as they were output. In order to do this, I
+            decided to design an embedded device to collect and write these logs to an SD card. This allowed me to avoid
+            using an entire computer solely to collect logs, and therefore enabled me to keep the logging device running
+            at all times.
+        </p>
+
+        <h3>Development Process</h3>
+        <p>
+            The first steps for me were selecting a development platform. I went with a Ti Tiva C Launchpad, with an
+            ARM Cortex-M4F MCU. This relatively powerful MCU enabled me to develop using an RTOS, and allowed for
+            fast operation. I selected TI-RTOS as my real time operation system to develop for, due to TI's readily
+            available examples and drivers from the RTOS.
+        </p>
+
+        <p>
+            Once I had selected a device to develop for and set up my toolchain, I began designing my application.
+            I opted to create an embedded console, complete with command history and editing, which allowed me to
+            easily issue commands to the MCU to check the application's status and manipulate the logger. Once I had
+            created a console. I connected an SD card to my development board, and then used the FatFS drivers to
+            create and write to a log file on the SD card. Following this, I enabled a second serial connection to
+            read data from the device I wanted to log. As a final step, I enabled the ability to "connect" the
+            commandline
+            console to the serial logging device.
+        </p>
+
+        <h3>Enabled Features</h3>
+        <p>
+            The basic feature of the logger works as expected. Once the system being logged (the target machine) powers
+            on, it will provide power to the serial logger, and the now powered serial logger will mount the SD card,
+            and write any data the target machine outputs over the UART serial connection to a log file on the SD card.
+        </p>
+
+        <p>
+            Beyond the core functionality of the logger, I have enabled several features accessible via the serial
+            commandline.
+            First, I have enabled the user to unmount and remount the SD card, so that they can remove the SD card and
+            view all past logs. Furthermore, I have added a "real time terminal". When requested, the serial logger will
+            relay all characters written to the serial commandline to the target machine, and write the target's output
+            back to the commandline, in effect creating a null modem connection. This can be useful to connect to the
+            target machine machine's serial console if the target machine fails to wake from sleep fully.
+        </p>
+
+        <h3>Challenges and Future Development</h3>
+        <p>
+            One challenge within the development of this device was unmounting and remounting the SD card. This centers
+            around the fact that the SD card is using the SPI bus, which is not intended to be hotplugged. One fix I
+            have worked on is using a transistor to switch power off to the SD card when it is unplugged, and this has
+            improved the issue somewhat. There is still more debugging work to be done to understand the exact
+            resolution
+            for this issue.
+        </p>
+
+        <p>
+            Future development for the serial logged mainly includes quality of life improvements. For example, using
+            the USB connection to expose the SD card would prevent the requirement to unmount the card, and simply
+            connecting to the device. Additionally, I would like to expose the serial commandline over a USB connection.
+            This should be feasible as well, since the commandline is designed to be interface agnostic.
+        </p>
+
+        <h4>Link to relevant code:</h4>
+        <a href="https://github.com/danieldegrasse/serial-logger">https://github.com/danieldegrasse/serial-logger</a>
+    </div>
+</main>
+<footer class="footer">
+    <div class="container">
+        <p class="text-center text-muted">© Daniel DeGrasse 2020</p>
+    </div>
+</footer>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+</html>

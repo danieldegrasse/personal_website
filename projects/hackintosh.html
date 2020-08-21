@@ -37,6 +37,7 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="#">Hackintosh</a>
                     <a class="dropdown-item" href="linux.html">Linux Administration</a>
+                    <a class="dropdown-item" href="serial_logger.html">Serial Logger</a>
                 </div>
             </li>
             <li class="nav-item">
@@ -49,33 +50,33 @@
 <main role="main" class="container-fluid">
 <div class="jumbotron m-3">
     <img src="clover-diff.png" class="img-fluid" alt="Patch diff between commits for Clover bootloader">
-    <h4 class="display-4">Mac OS on a PC</h4>
+    <h1 class="display-4">Mac OS on a PC</h1>
     <hr class="my-2">
     <p>Booting Mac OS on non-Apple hardware presents unique challenges, particularly when bugs appear with your
     specific hardware configuration</p>
 </div>
 <div class="container-fluid">
-    <h6 class="display-4">Intro: Basics of Booting Mac OS</h6>
+    <h3>Intro: Basics of Booting Mac OS</h3>
     <p>In a typical configuration, a UEFI bootloader called Clover is used to emulate Mac OS ACPI tables, and patch
     ACPI source language where required so that Mac OS can correctly enumerate the devices installed in a PC. Further,
     clover can inject "mission critical" drivers, called kernel extensions (KEXTs) into the Mac OS kernel cache. The
     primary KEXT Clover must inject is called <i>VirtualSMC</i>, and is responsible for emulating the system management
     controller present in every authentic Mac.</p>
 
-    <h6 class="display-4">Typical Challenges</h6>
+    <h3>Typical Challenges</h3>
     <p>Very few hardware configurations work out of the box with Mac OS. In particular, newer versions of Mac OS have no
     support for Nvidia graphics cards, and very few wifi cards besides a select few Broadcom chips are supported.
     Typically a computer will need KEXTs installed for it's network controller, as well as audio and Intel or AMD
     graphics. A more nuanced issue with modern hardware is that Apple does not implement automatic power state
     transition for Nvme drives, resulting in higher temperatures and power consumption.</p>
 
-    <h6 class="display-4">Unique Challenges on HP Spectre</h6>
+    <h3>Unique Challenges on HP Spectre</h3>
     <p>When installing Mac OS on my PC, an HP Spectre Laptop, I was not able to boot into Mac OS, reaching a panic before
     the kernel even loaded. After some debugging, I found that the issue was only occurring when the UEFI executable for
     Clover was stored on the Internal SSD, and that if I booted Clover in "Fast Boot" mode, I would be able to boot
     into Mac OS</p>
 
-    <h6 class="display-4">Resolution, and Future Projects</h6>
+    <h3>Resolution, and Future Projects</h3>
     <p>After some debugging within Clover's source code, I discovered that calling the "ReadKeyStroke" function,
     intended to get keyboard input in an UEFI environment, resulted in HP's firmware entering a Debug state that locked
     out specific memory locations Mac OS required to boot. The cover image of this page shows the relatively simple
@@ -91,7 +92,7 @@
 </main>
 <footer class="footer">
     <div class="container">
-        <p class="text-center text-muted">© Daniel DeGrasse 2019</p>
+        <p class="text-center text-muted">© Daniel DeGrasse 2020</p>
     </div>
 </footer>
 <!-- Optional JavaScript -->
