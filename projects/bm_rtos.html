@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="../sticky-footer.css" rel="stylesheet">
+
+    <title>BMOS (BM RTOS)</title>
+</head>
+<body>
+<header>
+    <!-- Navbar for moving between pages -->
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Navigation</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- navigation targets in website -->
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="../index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../resume.html">Resume</a>
+                </li>
+                <!-- Projects dropdown -->
+                <li class="nav-item dropdown active">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        My Projects
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">BMOS (BM RTOS)</a>
+                        <a class="dropdown-item" href="serial_logger.html">Serial Logger</a>
+                        <a class="dropdown-item" href="hackintosh.html">Hackintosh</a>
+                        <a class="dropdown-item" href="linux.html">Linux Administration</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../contact.html">Contact Me</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<main role="main" class="container-fluid">
+    <div class="jumbotron m-3">
+        <h1 class="display-4">Bare Metal RTOS (BMOS)</h1>
+        <hr class="my-2">
+        <p>This project seeks to implement a basic RTOS, featuring several drivers,
+            on the STM32 Nucleo-64 development board. The RTOS supports preemption,
+            tasks, semaphores, dynamic interrupt installation, and a logging subsystem.
+            It offers a UART and GPIO driver specific to the Nucleo dev board. The RTOS
+            also provides syscall stubs to support Newlib.
+        </p>
+    </div>
+    <div class="container-fluid">
+        <h4>Project Goals</h4>
+        <p>This project was primarily developed to cement my understanding of RTOS
+            concepts by implementing an RTOS directly in hardware. I implemented GPIO and
+            UART drivers both to simply testing and enable more compelling demos.
+            The primary goal of the project was to fully support switching between multiple
+            tasks on an ARM core, and allow tasks to preempt each other. </p>
+
+        <h4>Task implementation</h4>
+        <p>The RTOS task support uses simple task control blocks, defined in 
+            <a href="https://github.com/danieldegrasse/BMOS/blob/main/rtos/sys/task/task.c#L43">
+                rtos/sys/task/task.c
+            </a>. Each task has an independent stack, and during the process of
+            a context switch the running task will have all registers pushed
+            onto its stack. When a task is resumed, registers can simply
+            be popped off the task's stack. Tasks can be blocked
+            (if they are pending on a semaphore), delayed, or preempted (if preemption is enabled).
+            When preemption is enabled, the 
+            <a href="https://github.com/danieldegrasse/BMOS/blob/main/rtos/sys/task/task.c#L444">
+                SysTick interrupt handler</a> 
+            will determine if preemption is required. Context switches are triggered
+            via the PendSV exception.
+        </p>
+        <h4>Startup flow</h4>
+        <p>The RTOS startup flow first creates the idle task control block, then
+            triggers an SVCall exception. The exception handler for SVCalls will
+            enable the SysTick interrupt, switch to the process stack pointer, and run
+            whichever task is selected as the active task. If the user has not configured
+            tasks, this will be the idle task. Otherwise, the highest priority task they
+            have created will run.
+        </p>
+        <h4>Task Blocking</h4>
+        <p>A task can be delayed or blocked. Delayed tasks will be placed in a queue, and
+            each SysTick exception will decrement the delay of all tasks in the queue. If a
+            task reaches zero delay, it will be moved to the ready queue, and if preemption is
+            enabled the task will be switched into. A task can also be blocked by taking from a
+            semaphore. The task will be placed into a block queue, and will only be removed when
+            another task gives to the semaphore.
+        </p>
+        <h4>Logging subsystem</h4>
+        <p>The RTOS logging system is relatively simple. It implements various levels of debug logs,
+            which can be disabled by defining a lower verbosity log level. The logging statements are
+            passed to a console device, which may be implemented using SWO or a UART.
+        </p>
+        <h4>Newlib and Syscalls</h4>
+        <p>Newlib is implemented, along with support for a subset of syscalls. Memory allocation is supported
+            using a global heap, and writing to <i>stdout</i> will result in statements being printed to the selected
+            console device. If a program calls <i>exit</i>, the RTOS can optionally log the exit code instead of simply
+            hanging.
+        </p>
+        <h4>Drivers</h4>
+        <p>Drivers for the LPUART device and GPIO peripheral are implemented in the RTOS. These drivers allow the user to print to or
+            read from a console, as well as control GPIO devices. Both these drivers are implemented without use of the STM32 HAL, and
+            support interrupt driven operation. DMA support is not implemented in the LPUART driver, however.
+        </p>
+        <h4>Portability</h4>
+        <p>The RTOS and drivers are separated, and the only device driver the RTOS relies on being available is a UART driver for console
+            operation. Therefore the RTOS should theoretically be portable to any Cortex-M MCU, provided that the linker file is correctly updated.
+        </p>
+        <h4>Code reference</h4>
+        <p><a href="https://github.com/danieldegrasse/BMOS/">The code for BMOS can be found here.</a>
+    </div>
+</main>
+<footer class="footer">
+    <div class="container">
+        <p class="text-center text-muted">© Daniel DeGrasse 2021</p>
+    </div>
+</footer>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+</html>
