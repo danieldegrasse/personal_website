@@ -13,44 +13,7 @@
     <title>BMOS (BM RTOS)</title>
 </head>
 <body>
-<header>
-    <!-- Navbar for moving between pages -->
-    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Navigation</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <!-- navigation targets in website -->
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="../index.html">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="../resume.html">Resume</a>
-                </li>
-                <!-- Projects dropdown -->
-                <li class="nav-item dropdown active">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        My Projects
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">BMOS (BM RTOS)</a>
-                        <a class="dropdown-item" href="serial_logger.html">Serial Logger</a>
-                        <a class="dropdown-item" href="hackintosh.html">Hackintosh</a>
-                        <a class="dropdown-item" href="linux.html">Linux Administration</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="../contact.html">Contact Me</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-</header>
+<div id="header"></div>
 <main role="main" class="container-fluid">
     <div class="jumbotron m-3">
         <h1 class="display-4">Bare Metal RTOS (BMOS)</h1>
@@ -138,8 +101,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
-<script>
-    $("#footer").load("../footer.html");
-</script>
+<script src="/headers.js"></script>
 </body>
 </html>
