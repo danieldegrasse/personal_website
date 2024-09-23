@@ -71,7 +71,7 @@
             tasks on an ARM core, and allow tasks to preempt each other. </p>
 
         <h4>Task implementation</h4>
-        <p>The RTOS task support uses simple task control blocks, defined in 
+        <p>The RTOS task support uses simple task control blocks, defined in
             <a href="https://github.com/danieldegrasse/BMOS/blob/main/rtos/sys/task/task.c#L43">
                 rtos/sys/task/task.c
             </a>. Each task has an independent stack, and during the process of
@@ -79,9 +79,9 @@
             onto its stack. When a task is resumed, registers can simply
             be popped off the task's stack. Tasks can be blocked
             (if they are pending on a semaphore), delayed, or preempted (if preemption is enabled).
-            When preemption is enabled, the 
+            When preemption is enabled, the
             <a href="https://github.com/danieldegrasse/BMOS/blob/main/rtos/sys/task/task.c#L444">
-                SysTick interrupt handler</a> 
+                SysTick interrupt handler</a>
             will determine if preemption is required. Context switches are triggered
             via the PendSV exception.
         </p>
@@ -125,21 +125,21 @@
         <p><a href="https://github.com/danieldegrasse/BMOS/">The code for BMOS can be found here.</a>
     </div>
 </main>
-<footer class="footer">
-    <div class="container">
-        <p class="text-center text-muted">© Daniel DeGrasse 2021</p>
-    </div>
-</footer>
+<!-- Shared footer, populated by JQuery load() function -->
+<div id="footer"></div>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+	integrity="sha384-vk5WoKIaW/vJyUAd9n/wmopsmNhiy+L2Z+SBxGYnUkunIxVxAv/UtMOhba/xskxh"
+	crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+<script>
+    $("#footer").load("../footer.html");
+</script>
 </body>
 </html>
